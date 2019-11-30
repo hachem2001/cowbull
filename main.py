@@ -31,17 +31,17 @@ class CowBull:
         # Step 1 : find the well-placed numbers, count them, then "delete" them
         for i in range(self.num_digits):
             if number_copy[i] == proposition_copy[i]:
-                number_copy[i] = "n"  # Replace all found well placed numbers by "n" so we don't recheck them afterwards
-                proposition_copy[i] = "n"  # Do the same thing
+                number_copy = number_copy[0:i] + "n" + number_copy[i+1:]  # Replace found well placed number by "n" so we don't recheck it afterwards
+                proposition_copy = proposition_copy[0:i] + "n" + proposition_copy[i+1:]   # Do the same thing on proposition_copy
                 bulls += 1
 
         for i in range(self.num_digits):  # Count the number of cows
             if number_copy[i] != "n":  # Ignore the deleted parts
-                f = proposition.find(i)  # Returns the position of the first occurrence of number_copy[i], else -1.
+                f = proposition_copy.find(number_copy[i])  # Returns the position of the first occurrence of number_copy[i], else -1.
                 if f >= 0:
                     cows += 1
-                    number_copy[i] = "n"
-                    proposition_copy[f] = "n"
+                    number_copy = number_copy[0:i] + "n" + number_copy[i+1:]
+                    proposition_copy = proposition_copy[0:f] + "n" + proposition_copy[f+1:]
         return cows, bulls
 
 
