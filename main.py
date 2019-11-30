@@ -33,6 +33,16 @@ class CowBull:
             if number_copy[i] == proposition_copy[i]:
                 number_copy[i] = "n"  # Replace all found well placed numbers by "n" so we don't recheck them afterwards
                 proposition_copy[i] = "n"  # Do the same thing
+                bulls += 1
+
+        for i in range(self.num_digits):  # Count the number of cows
+            if number_copy[i] != "n":  # Ignore the deleted parts
+                f = proposition.find(i)  # Returns the position of the first occurrence of number_copy[i], else -1.
+                if f >= 0:
+                    cows += 1
+                    number_copy[i] = "n"
+                    proposition_copy[f] = "n"
+        return cows, bulls
 
 
 game = CowBull()
